@@ -1,0 +1,73 @@
+@model Product
+@{
+    ViewData["Title"] = "Add Product";
+    ViewData["BreadcrumbTitle"] = "Add Product";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Add New Product</h1>
+        <p class="page-subtitle">Fill in the details to add a product to inventory</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Back to Products
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-plus-circle me-2 text-primary"></i>Product Information</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label fw-semibold"></label>
+                        <input asp-for="Name" class="form-control form-control-lg" placeholder="e.g. Samsung Galaxy S24" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Price" class="form-label fw-semibold"></label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text">₱</span>
+                            <input asp-for="Price" class="form-control" placeholder="0.00" type="number" step="0.01" min="1" max="100000" />
+                        </div>
+                        <span asp-validation-for="Price" class="text-danger small"></span>
+                        <div class="form-text">Enter a value between ₱1 and ₱100,000</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Category" class="form-label fw-semibold"></label>
+                        <input asp-for="Category" class="form-control form-control-lg" placeholder="e.g. Electronics, Clothing, Food" list="categoryList" />
+                        <datalist id="categoryList">
+                            <option value="Electronics"></option>
+                            <option value="Clothing"></option>
+                            <option value="Food & Beverage"></option>
+                            <option value="Furniture"></option>
+                            <option value="Sports"></option>
+                            <option value="Books"></option>
+                            <option value="Tools"></option>
+                            <option value="Health & Beauty"></option>
+                        </datalist>
+                        <span asp-validation-for="Category" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-check-lg me-2"></i>Save Product
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

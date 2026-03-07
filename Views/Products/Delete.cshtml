@@ -1,0 +1,56 @@
+@model Product
+@{
+    ViewData["Title"] = "Delete Product";
+    ViewData["BreadcrumbTitle"] = "Delete Product";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Delete Product</h1>
+        <p class="page-subtitle">This action cannot be undone</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Back to Products
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+        <div class="card border-danger shadow-sm">
+            <div class="card-header bg-danger text-white">
+                <h6 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Deletion</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger border-0 bg-danger-subtle">
+                    <strong>Warning:</strong> You are about to permanently delete this product.
+                </div>
+
+                <dl class="row mt-3">
+                    <dt class="col-sm-4 text-muted">Product ID</dt>
+                    <dd class="col-sm-8"><strong>#@Model.Id</strong></dd>
+
+                    <dt class="col-sm-4 text-muted">Name</dt>
+                    <dd class="col-sm-8"><strong>@Model.Name</strong></dd>
+
+                    <dt class="col-sm-4 text-muted">Category</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge bg-primary-subtle text-primary">@Model.Category</span>
+                    </dd>
+
+                    <dt class="col-sm-4 text-muted">Price</dt>
+                    <dd class="col-sm-8 text-success fw-bold">₱@Model.Price.ToString("N2")</dd>
+
+                    <dt class="col-sm-4 text-muted">Date Added</dt>
+                    <dd class="col-sm-8 text-muted small">@Model.DateAdded.ToString("MMMM dd, yyyy")</dd>
+                </dl>
+
+                <form asp-action="Delete" class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn btn-danger btn-lg px-5">
+                        <i class="bi bi-trash-fill me-2"></i>Yes, Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
