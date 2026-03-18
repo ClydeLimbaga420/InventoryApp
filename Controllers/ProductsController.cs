@@ -16,7 +16,7 @@ namespace InventoryApp.Controllers
             _context = context;
         }
 
-        // GET: Products
+       
         public async Task<IActionResult> Index(string? search, string? category, string? sortPrice)
         {
             ViewBag.Search = search;
@@ -48,14 +48,13 @@ namespace InventoryApp.Controllers
             return View(products);
         }
 
-        // GET: Products/Create
+        
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -72,7 +71,7 @@ namespace InventoryApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
+    
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,7 +83,6 @@ namespace InventoryApp.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -111,7 +109,6 @@ namespace InventoryApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -123,7 +120,6 @@ namespace InventoryApp.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
