@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -29,7 +28,6 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Seed roles and admin user
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -71,24 +69,27 @@ async Task SeedRolesAndAdmin(IServiceProvider serviceProvider)
             await roleManager.CreateAsync(new IdentityRole(role));
     }
 
-    // Seed Admin user
-    var adminEmail = "admin@inventory.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
-    {
-        adminUser = new ApplicationUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            FullName = "System Administrator",
-            EmailConfirmed = true
-        };
-        var result = await userManager.CreateAsync(adminUser, "Admin@123");
-        if (result.Succeeded)
-            await userManager.AddToRoleAsync(adminUser, "Admin");
-    }
+    var adminEmail = "limbagaclyde99@gmail.com";
 
-    // Seed regular User
+var adminUser = await userManager.FindByEmailAsync(adminEmail);
+if (adminUser == null)
+{
+    adminUser = new ApplicationUser
+    {
+        UserName = adminEmail,
+        Email = adminEmail,
+        FullName = "System Administrator",
+        EmailConfirmed = true
+    };
+    await userManager.CreateAsync(adminUser, "Admin@123");
+}
+
+
+if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+{
+    await userManager.AddToRoleAsync(adminUser, "Admin");
+}
+
     var userEmail = "user@inventory.com";
     var regularUser = await userManager.FindByEmailAsync(userEmail);
     if (regularUser == null)
